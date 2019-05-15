@@ -476,7 +476,8 @@ open class FTPFileProvider: NSObject, FileProviderBasicRemote, FileProviderOpera
                 self.delegateNotify(operation, progress: progress.fractionCompleted)
             }, completionHandler: { (error) in
                 if error != nil {
-                    progress.cancel()
+                  progress.cancel()
+                  return
                 }
                 self.ftpQuit(task)
                 self.dispatch_queue.async {

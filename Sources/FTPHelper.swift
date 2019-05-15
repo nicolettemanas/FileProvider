@@ -695,7 +695,7 @@ internal extension FTPFileProvider {
                 self.execute(command: "STOR \(filePath)", on: task, afterSend: { error in
                     onTask?(dataTask)
                     
-                    let timeout = self.session.configuration.timeoutIntervalForResource
+                    let timeout = self.session.configuration.timeoutIntervalForRequest
                     var error: Error?
                     
                     let chunkSize = self.optimizedChunkSize(size)
@@ -945,8 +945,8 @@ internal extension FTPFileProvider {
     
     func ftpQuit(_ task: FileProviderStreamTask) {
         self.execute(command: "QUIT", on: task) { (_, _) in
-            //task.closeRead()
-            //task.closeWrite()
+            task.closeRead()
+            task.closeWrite()
         }
     }
     
